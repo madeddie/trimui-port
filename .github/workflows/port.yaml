@@ -4,7 +4,12 @@ on:
   push:
     branches: [ smartpro ]
   workflow_dispatch:
-
+    inputs:
+      branch:
+        description: 'Branch in Switchfin to build'
+        required: true
+        type: string
+        default: dev
 permissions:
   contents: write
 
@@ -50,7 +55,7 @@ jobs:
         repository: madeddie/switchfin
         submodules: true
         fetch-tags: true
-        ref: download_media
+        ref: ${{ inputs.branch }}
         path: src/switchfin
     - name: build switchfin
       run: |
