@@ -14,7 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sys: [ tg5040, knulli ]
+        #sys: [ tg5040, knulli ]
+        sys: [ knulli ]
     steps:
     - uses: actions/checkout@v4
     - name: install toolchain
@@ -27,29 +28,29 @@ jobs:
         make -f Makefile.${{ matrix.sys }} toolchain
     - name: build depency
       run: make -f Makefile.${{ matrix.sys }} download curl libwebp mpv TMPDIR=${{ runner.temp }}
-    - name: checkout wiliwili
-      uses: actions/checkout@v4
-      with:
-        repository: dragonflylee/wiliwili
-        submodules: true
-        fetch-depth: 0
-        ref: dev
-        path: src/wiliwili
-    - name: build wiliwili
-      run: |
-        make -f Makefile.${{ matrix.sys }} wiliwili
-        mv build/wiliwili/wiliwili build/wiliwili/resources WiliWili
-        rm WiliWili/resources/font/keymap_*.ttf
-        curl -Lo WiliWili/resources/cacert.pem https://curl.se/ca/cacert.pem
-        cp -f trimui.ttf WiliWili/resources/font/switch_icons.ttf
-        7z a -mx=9 WiliWili-${{ matrix.sys }}.7z ./WiliWili
+    #- name: checkout wiliwili
+    #  uses: actions/checkout@v4
+    #  with:
+    #    repository: dragonflylee/wiliwili
+    #    submodules: true
+    #    fetch-depth: 0
+    #    ref: dev
+    #    path: src/wiliwili
+    # - name: build wiliwili
+    #  run: |
+    #    make -f Makefile.${{ matrix.sys }} wiliwili
+    #    mv build/wiliwili/wiliwili build/wiliwili/resources WiliWili
+    #    rm WiliWili/resources/font/keymap_*.ttf
+    #    curl -Lo WiliWili/resources/cacert.pem https://curl.se/ca/cacert.pem
+    #    cp -f trimui.ttf WiliWili/resources/font/switch_icons.ttf
+    #    7z a -mx=9 WiliWili-${{ matrix.sys }}.7z ./WiliWili
     - name: checkout switchfin
       uses: actions/checkout@v4
       with:
-        repository: dragonflylee/switchfin
+        repository: madeddie/switchfin
         submodules: true
         fetch-tags: true
-        ref: dev
+        ref: download_media
         path: src/switchfin
     - name: build switchfin
       run: |
