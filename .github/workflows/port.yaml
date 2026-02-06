@@ -50,7 +50,7 @@ jobs:
         repository: madeddie/switchfin
         submodules: true
         fetch-tags: true
-        ref: download_media
+        ref: dev
         path: src/switchfin
     - name: build switchfin
       run: |
